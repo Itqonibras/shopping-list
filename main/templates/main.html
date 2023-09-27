@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Shopping List Page</h1>
+<nav class="navbar bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1 text-white">Hi, {{ name }}!</span>
+        <a href="{% url 'main:logout' %}">
+            <button>
+                Logout
+            </button>
+        </a>
+    </div>
+</nav>
 
-    <h5>Name:</h5>
-    <p>{{name}}</p>
+<h1>Shopping List Page</h1>
 
-    <h5>Class:</h5>
-    <p>{{class}}</p>
+<h5>Class:</h5>
+<p>{{class}}</p>
 
-    ...
 <table>
     <tr>
         <th>Name</th>
@@ -21,12 +28,25 @@
     {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
 
     {% for product in products %}
-        <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.date_added}}</td>
-        </tr>
+    <tr>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.date_added}}</td>
+        <td>
+            <a href="{% url 'main:edit_product' product.pk %}">
+                <button>
+                    Edit
+                </button>
+            </a>
+        </td>
+        <td>
+            <a href="{% url 'main:delete_product' product.pk %}">
+                <button>
+                    Delete
+                </button>
+            </a>
+    </tr>
     {% endfor %}
 </table>
 
@@ -35,12 +55,6 @@
 <a href="{% url 'main:create_product' %}">
     <button>
         Add New Product
-    </button>
-</a>
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
     </button>
 </a>
 
